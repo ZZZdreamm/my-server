@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-# Nginx handles the public face, but we keep CORS open for testing
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,6 +14,6 @@ main_router = APIRouter(prefix="/api")
 
 @main_router.get("/status")
 def get_status():
-    return {"status": "running", "environment": "poetry"}
+    return {"status": "running", "environment": "poetryy"}
 
 app.include_router(main_router)
