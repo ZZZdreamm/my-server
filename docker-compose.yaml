@@ -1,8 +1,11 @@
 services:
   backend:
     build: ./backend
-    restart: always
-    # No ports exposed! Nginx talks to this internally via the service name.
+    volumes:
+      - ./backend:/app  # Maps local code to container code
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1 # Prevents .pyc files cluttering your host
+      - PYTHONUNBUFFERED=1        # Ensures logs show up in real-time
 
   frontend:
     image: nginx:stable-alpine

@@ -1,0 +1,18 @@
+services:
+  backend:
+    build: ./backend
+    volumes:
+      - ./backend:/app  # Maps local code to container code
+    environment:
+      - PYTHONDONTWRITEBYTECODE=1 # Prevents .pyc files cluttering your host
+      - PYTHONUNBUFFERED=1        # Ensures logs show up in real-time
+
+  frontend:
+    build: ./frontend # Change from 'image: nginx' to 'build'
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules # Important: Don't overwrite container modules with host
+    environment:
+      - VITE_WATCH_USE_POLLING=true # Helps with WSL2 file watching
+    ports:
+      - "5173:5173"

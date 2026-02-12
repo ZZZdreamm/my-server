@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -11,6 +11,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/api/status")
+main_router = APIRouter(prefix="/api")
+
+@main_router.get("/status")
 def get_status():
     return {"status": "running", "environment": "poetry"}
+
+app.include_router(main_router)
